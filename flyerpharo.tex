@@ -12,15 +12,22 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 
-\usepackage[default]{opensans}
-\renewcommand{\mddefault}{cl}
+\usepackage[default,scale=.82]{opensans}
+% \renewcommand{\seriesdefault}{cl}
 \renewcommand{\bfdefault}{sb}
+% \renewcommand{\ttdefault}{fos}
+\renewcommand\ttfamily{%
+  \fontfamily{\ttdefault}%
+  % \fontseries{lc}%
+  \fontshape{\shapedefault}%
+  \selectfont}
 
 \usepackage[table,svgnames]{xcolor}
 \usepackage{graphicx}
 \usepackage{tabularx,booktabs}
 \usepackage{alltt,textcomp}
 \usepackage{url}
+\urlstyle{sf}
 \usepackage{ifthen}
 \usepackage{xspace}
 
@@ -50,18 +57,16 @@
 \makeatother
 
 
-\graphicspath{{figures/}}
+\graphicspath{{./figures/}}
 
 \title{%
-  \vspace*{0.5\textwidth}
-  \normalfont%
-  \resizebox{\linewidth}{!}{%
-    \includegraphics[width=\textwidth]{logo}
-  }%
+  \vspace*{0.5\textwidth}%
+  \normalfont
+  \includegraphics[width=\linewidth]{logo.pdf}
   \\[1.8\baselineskip]%
   a clean, innovative, open-source Smalltalk-inspired environment\\
   \vfill
-  http://www.pharo.org}
+  \url{http://www.pharo.org}}
 
 \date{}
 
@@ -75,16 +80,15 @@
 
 \pagebreak{}
 
-\section{Pharo Important Concepts}
+\section{Pharo: the Elevator Pitch}
 
-Pharo is an \emph{object-oriented}, \emph{dynamically-typed} language
-and programming environment. The language has a simple syntax which
-can be learned in \emph{thirty seconds}. In Pharo, the concepts are
+Pharo is both an \emph{object-oriented}, \emph{dynamically-typed} language
+and its own programming environment. The language has a simple but very expressive syntax which
+can be learned in just a few minutes. In Pharo, the concepts are
 \emph{very consistent}:
-
 \begin{itemize}
-\item everything is an object: classes, methods, numbers, etc.
-\item a small number of rules, no exceptions!
+  \item Everything is an object: buttons, colors, arrays, numbers, classes, methods\ldots \emph{Everything!}
+  \item A small number of rules, no exceptions!
 \end{itemize}
 
 Pharo runs in a \emph{virtual machine}. Development takes place in an
@@ -93,34 +97,37 @@ of an image can be saved and reloaded later to get all your objects
 and tools back. Image-based development feels really different from
 file-based development.
 
-\subsection{Pharo Syntax}
+\subsection{Minimal Syntax}
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}rX@{}}
         \toprule
-        \multicolumn{2}{l}{Reserved words}\\
+        \multicolumn{2}{c}{Six reserved words only}\\
         \midrule
-        \code{nil} & undefined object (default variable values)\\
-        \code{true} {and}{} \code{false} & boolean objects\\
-        \code{self} & current object\\
-        \code{super} & current object in the super class context\\
-        \code{thisContext} & run-time stack\\
+        \code{nil} & the undefined object (default variable value)\\
+        \code{true}, \code{false} & boolean objects\\
+        \code{self} & the receiver of the current message\\
+        \code{super} & the receiver, in the super class context\\
+        \code{thisContext} & the current activation on the call stack\\
         \addlinespace
 
         \toprule
-        \multicolumn{2}{l}{Reserved characters}\\
+        \multicolumn{2}{c}{Reserved punctuation characters}\\
         \midrule
-        \code{:=} & {assignment} \\
-        \code{\^} & return a result from a method \\
-        \code{| var1 var2 var3 |} & declaration of three  temporary variables \\
-        \code{\$a} & character \code{a} \\
-        \code{\#(abc 123)} & array containing two literals: the symbol \code{\#abc} and the number \code{123} \\
-        \code{\{abc . 123 + 1\}} & array containing two values (\code{\#abc} and \code{124}) computed from two expressions\\
-        \code{.} & expression separator \\
-        \code{;} & message cascade \\
-        \code{[ :p | \dots ]} & code block with 1 parameter \\
         \code{"}{comment}\code{"} & \\
         \code{'}{string}\code{'} & \\
+        \code{\#symbol} & unique string \\
+        \code{\$a} & the character \code{a} \\
+        \code{12 2r1100 16rC} & twelve (decimal, binary, hexadecimal)\\
+        \code{3.14 1.2e3} & floating-point numbers\\
+        \code{.} & expression separator (period)\\
+        \code{;} & message cascade \\
+        \code{:=} & {assignment} \\
+        \code{\textasciicircum} & return a result from a method (caret)\\
+        \code{[\,:p\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
+        \code{|\,foo bar\,|} & declaration of two temporary variables \\
+        \code{\#(abc 123)} & literal array, containing the symbol \code{\#abc} and the number \code{123} \\
+        \code{\{foo\,.\ 3\,+\,2\}} & array dynamically built from expressions\\
         \bottomrule
 \end{tabularx}
 
@@ -163,7 +170,6 @@ string \code{'Hello'} with \code{' World'} as the argument.
 
 \paragraph{Keyword Messages.}
 
-
 A keyword message can take one or more arguments. The arguments are
 inserted between each keyword, after each colon.
 
@@ -176,26 +182,23 @@ inserted between each keyword, after each colon.
 The first example sends the message \code{allButFirst:} to a string
 with the argument \code{5}. The method returns the string
 \code{'talk'}. The second example sends the message \code{to:by:} to
-\code{3} with two arguments \code{10} and \code{2}. The message send
+\code{3} with two arguments \code{10} and \code{2}; this
 returns a collection containing elements \code{3}, \code{5}, \code{7}
 and \code{9}.
 
-\paragraph{Message Precedence}
+\paragraph{Precedence.}
 
-\code{(expression)} $\longrightarrow{}$ unary $\longrightarrow{}$
-binary $\longrightarrow{}$ keyword, and from left to right.
+Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from left to right.
 
 \begin{displaycode}
-(10 between: 1 and: 20 + 2) not
+(10 between: 1 and: 2\,+\,4\,*\,3) not
 \end{displaycode}
 
-In this example, the message \code{+} is sent first, then the message
-\code{between:and:} is sent, and finally \code{not} is sent.
-\textbf{Pay attention:} even for mathematical operators, there is
-\emph{no notion of operator precedence}. \code{2 + 4 * 3} evaluates to
-18 instead of 14!
+Here, the messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and finally \code{not}.
+The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}, so
+\code{2\,+\,4\,*\,3} reads left-to-right and gives 18, not 14!
 
-\subsection{Block}
+\subsection{Blocks}
 
 Blocks are objects containing code that is not executed immediately,
 similar to anonymous functions. They are the basis for control
@@ -212,14 +215,14 @@ the array (passed to the \code{each} block parameter). As a result of
 the whole expression, the strings \code{'Hello '} then \code{'World'}
 are displayed in the transcript.
 
-\section{Development Environment}
+\section{Pharo: a Live Development Environment}
 
 Pharo comes with an integrated development environment that allows you
 to browse your source code and the one of the whole environment. Pharo
-is a \emph{live programming environment} in the sense that you can
-modify your objects and code while your program is executing.
+is a \emph{live programming environment}: you can
+modify your objects and your code while your program is executing.
 
-All Pharo tools are implemented in Pharo thanks to a reflection API:
+All Pharo tools are implemented in Pharo, using reflection:
 
 \begin{itemize}
 \item a code browser with refactoring tools;
@@ -281,11 +284,12 @@ The Pharo code browser is composed of 5 panes:
 The following are Pharo-specific free open-source online books:
 
 \begin{description}
-\item[Pharo By Example] http://pharobyexample.org/ (also available
-  through amazon.com);
+\item[Pharo By Example]
+  (also available through amazon.com)
+  \url{http://pharobyexample.org/}
 \item[Deep into Pharo]
-  https://ci.inria.fr/pharo-contribution/job/DeepIntoPharo/ (soon to
-  be released);
+  (soon to be released)
+  \url{https://ci.inria.fr/pharo-contribution/job/DeepIntoPharo/}
 \end{description}
 
 Many related books can be freely downloaded from:\\[-1em]
