@@ -94,10 +94,15 @@ in just a few minutes In Pharo, the concepts are \emph{very
 \end{itemize}
 
 Pharo runs in a \emph{virtual machine}. Development takes place in an
-\emph{image} in which all objects live and can be modified. The state
-of an image can be saved and reloaded later to get all your objects
-and tools back. Image-based development feels really different from
-file-based development.
+\emph{image} in which all objects live and can be modified. An image
+is like a smart cache. The state of an image can be saved and reloaded
+later to get all your objects and tools back. Image-based development
+feels really different from file-based development.
+
+% Not enough space for that :-( Extracting the source code from the
+% image is done through a dedicated version control system; publishing
+% code can be done on open servers such as
+% \url{http://smalltalkhub.com}.
 
 \subsection{Minimal Syntax}
 
@@ -129,7 +134,7 @@ file-based development.
         \code{[\,:p\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
         \code{|\,foo bar\,|} & declaration of two temporary variables \\
         \code{\#(abc 123)} & literal array, containing the symbol \code{\#abc} and the number \code{123} \\
-        \code{\{foo\,.\ 3\,+\,2\}} & array dynamically built from expressions\\
+        \code{\{foo\,.\ 3\,+\,2\}} & dynamic array built from 2 expressions\\
         \bottomrule
 \end{tabularx}
 
@@ -301,7 +306,10 @@ Many related books can be freely downloaded from:\\[-1em]
 \subsection{Links}
 
 \begin{description}
-\item[Website] \url{http://www.pharo.org}
+\item[Main website] \url{http://www.pharo.org}
+\item[Code hosting] \url{http://smalltalkhub.com}
+\item[Consortium] \url{http://consortium.pharo.org}
+\item[Association] \url{http://association.pharo.org}
 \end{description}
 
 \end{document}
