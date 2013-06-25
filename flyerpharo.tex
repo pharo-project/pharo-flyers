@@ -22,6 +22,16 @@
   \fontshape{\shapedefault}%
   \selectfont}
 
+\usepackage{enumitem}
+\setlist{
+    topsep=0pt,
+    partopsep=0pt,
+    parsep=1ex,
+    nolistsep,
+    itemsep=.5ex
+}
+\setlength{\parskip}{.5\smallskipamount}
+
 \usepackage[table,svgnames]{xcolor}
 \usepackage{graphicx}
 \usepackage{tabularx,booktabs}
@@ -42,15 +52,15 @@
 \newsavebox{\code@box}
 \definecolor{light-gray}{rgb}{0.9,0.9,0.9}
 \newenvironment{displaycode}{%
-        \begin{lrbox}{\code@box}%
-                \begin{minipage}{\linewidth}
-                        \begin{alltt}\small
-}{
-                        \end{alltt}
-                \end{minipage}
-        \end{lrbox}
-        \colorbox{light-gray}{\usebox{\code@box}}
-}
+    \par
+    \begin{lrbox}{\code@box}%
+        \begin{minipage}{\linewidth}
+            \begin{alltt}\small}{
+            \end{alltt}
+        \end{minipage}
+    \end{lrbox}
+    \colorbox{light-gray}{\usebox{\code@box}}%
+    \par}
 %\let\code\texttt
 % Use of english prevents babel from adding spaces before $:
 \newcommand{\code}[1]{\foreignlanguage{english}{\texttt{#1}}}
@@ -64,6 +74,7 @@
   \normalfont
   \includegraphics[width=\linewidth]{logo.pdf}
   \\[1.8\baselineskip]%
+  \fontseries{cl}\selectfont\Huge
   a clean, innovative, open-source Smalltalk-inspired environment\\
   \vfill
   \url{http://www.pharo.org}}
@@ -85,9 +96,7 @@
 Pharo is both an \emph{object-oriented}, \emph{dynamically-typed}
 general-purpose language and its own programming environment. The
 language has a simple and very expressive syntax which can be learned
-in just a few minutes In Pharo, the concepts are \emph{very
-  consistent}:
-
+in just a few minutes In Pharo, the concepts are \emph{very consistent}:
 \begin{itemize}
   \item Everything is an object: buttons, colors, arrays, numbers, classes, methods\ldots \emph{Everything!}
   \item A small number of rules, no exceptions!
@@ -143,7 +152,7 @@ feels really different from file-based development.
 A method is called by sending a message to an object, the message
 \emph{receiver}; the message returns an object. Messages are modeled
 from natural languages, with a subject, a verb, and complements. There
-are three types of messages: unary, binary and keyword.
+are three types of messages: unary, binary, and keyword.
 
 \paragraph{Unary Messages.}
 
@@ -151,7 +160,6 @@ A unary message is one with no arguments.
 
 \begin{displaycode}
 Array new.
-
 #(1 2 3) size.
 \end{displaycode}
 
@@ -167,13 +175,11 @@ symbols and is often used for arithmetic expressions.
 
 \begin{displaycode}
 3 + 4.
-
 'Hello', ' World'.
 \end{displaycode}
 
 The \code{+} message is sent to the object \code{3} with \code{4} as
-the argument. In the second case, the message \code{,} is sent to the
-string \code{'Hello'} with \code{' World'} as the argument.
+the argument. In the second case, the string \code{'Hello'} receives the message \code{,} (comma) with \code{'~World'} as the argument.
 
 \paragraph{Keyword Messages.}
 
@@ -182,15 +188,14 @@ inserted between each keyword, after each colon.
 
 \begin{displaycode}
 'Smalltalk' allButFirst: 5.
-
 3 to: 10 by: 2.
 \end{displaycode}
 
-The first example sends the message \code{allButFirst:} to a string
-with the argument \code{5}. The method returns the string
-\code{'talk'}. The second example sends the message \code{to:by:} to
-\code{3} with two arguments \code{10} and \code{2}; this
-returns a collection containing elements \code{3}, \code{5}, \code{7}
+The first example sends the message \code{allButFirst:} to a string,
+with the argument \code{5}. This returns the string
+\code{'talk'}. The second example sends \code{to:by:} to
+\code{3}, with arguments \code{10} and \code{2}; this
+returns a collection containing \code{3}, \code{5}, \code{7},
 and \code{9}.
 
 \paragraph{Precedence.}
@@ -212,25 +217,21 @@ similar to anonymous functions. They are the basis for control
 structures like conditionals or loops.
 
 \begin{displaycode}
-\#('Hello' ' World')
+\#('Hello' ' World' \$!)
   do: [ :each | Transcript show: each ].
 \end{displaycode}
 
-The example sends the message \code{do:} to an array of strings with a
-block as a parameter. The block is evaluated once for each element in
-the array (passed to the \code{each} block parameter). As a result of
-the whole expression, the strings \code{'Hello '} then \code{'World'}
-are displayed in the transcript.
+The example sends the message \code{do:} to an array.
+This evaluates the block once for each element, passing it via the \code{each} parameter. As a result, the transcript displays the text \code{Hello~World!}.
 
 \section{Pharo: a Live Development Environment}
 
 Pharo comes with an integrated development environment that allows you
-to browse your source code and the one of the whole environment. Pharo
+to browse not only your source code, but also the whole system. Pharo
 is a \emph{live programming environment}: you can
 modify your objects and your code while your program is executing.
 
 All Pharo tools are implemented in Pharo, using reflection:
-
 \begin{itemize}
 \item a code browser with refactoring tools;
 \item a workspace and object inspectors;
@@ -247,11 +248,8 @@ see available options).
   \includegraphics[width={.6}\textwidth]{workspace}
 \end{center}
 
+\clearpage
 \subsection{The Pharo Code Browser}
-
-\begin{center}
-  \includegraphics[width={1}\textwidth]{nautilus-anotated}
-\end{center}
 
 The Pharo code browser is composed of 5 panes:
 
@@ -284,26 +282,26 @@ The Pharo code browser is composed of 5 panes:
   instance and class variables (\emph{I} and \emph{C}).
 \end{itemize}
 
-\section{Want More?}
+\begin{center}
+  \includegraphics[width={1}\textwidth]{nautilus-anotated}
+\end{center}
 
-\subsection{Books}
-
-The following are Pharo-specific free open-source online books:
+\section{Books}
 
 \begin{description}
 \item[Pharo By Example]
-  (also available through amazon.com)
-  \url{http://pharobyexample.org/}
+  (also available through amazon.com)\\
+  \url{http://pharobyexample.org}
 \item[Deep into Pharo]
-  (soon to be released)
-  \url{https://ci.inria.fr/pharo-contribution/job/DeepIntoPharo/}
+  (soon to be released)\\
+  \url{https://ci.inria.fr/pharo-contribution/job/DeepIntoPharo}
+\item[More related books]~\\
+    \url{http://stephane.ducasse.free.fr/FreeBooks}
 \end{description}
 
-Many related books can be freely downloaded from:\\[-1em]
 
-\hspace{1em}http://stephane.ducasse.free.fr/FreeBooks
 
-\subsection{Links}
+\section{Links}
 
 \begin{description}
 \item[Main website] \url{http://www.pharo.org}
