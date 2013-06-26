@@ -28,9 +28,12 @@
     partopsep=0pt,
     parsep=1ex,
     nolistsep,
-    itemsep=.5ex
+    itemsep=.1ex
 }
-\setlength{\parskip}{.5\smallskipamount}
+\setlength{\parskip}{1ex}
+
+% \newcommand{\myparagraph}[1]{\vspace{.6em}\textsc{#1}}
+\newcommand{\myparagraph}[1]{#1---}
 
 \usepackage[table,svgnames]{xcolor}
 \usepackage{graphicx}
@@ -48,24 +51,30 @@
 
 \usepackage{microtype}
 
+\definecolor{light-gray}{rgb}{0.8,0.8,0.8}
+\definecolor{comment}{rgb}{0.35,0.35,0.35}
+\definecolor{string}{rgb}{0.5,0,0.5}
+\definecolor{darkRed}{rgb}{0.5,0,0}
+\definecolor{darkBlue}{rgb}{0,0,0.3}
+\definecolor{darkCyan}{rgb}{0,0.3,0.3}
+
 \makeatletter
 \newsavebox{\code@box}
-\definecolor{light-gray}{rgb}{0.9,0.9,0.9}
-\newenvironment{displaycode}{%
-    \par
-    \begin{lrbox}{\code@box}%
-        \begin{minipage}{\linewidth}
-            \begin{alltt}\small}{
-            \end{alltt}
-        \end{minipage}
-    \end{lrbox}
-    \colorbox{light-gray}{\usebox{\code@box}}%
-    \par}
-%\let\code\texttt
-% Use of english prevents babel from adding spaces before $:
-\newcommand{\code}[1]{\foreignlanguage{english}{\texttt{#1}}}
+ \newenvironment{displaycode}{%
+     \par
+     % \begin{lrbox}{\code@box}%
+     \hspace{1.5em}\begin{minipage}{\linewidth}
+       \begin{alltt}\small}{
+       \end{alltt}
+     \end{minipage}
+     % \end{lrbox}
+     % \usebox{\code@box}%
+     \par}
 \makeatother
 
+
+% Use of english prevents babel from adding spaces before $:
+\newcommand{\code}[1]{\foreignlanguage{english}{\texttt{#1}}}
 
 \graphicspath{{./figures/}}
 
@@ -82,6 +91,8 @@
   \url{http://www.pharo.org}}
 
 \date{}
+
+\setmargins{8mm}{8mm}{8mm}{8mm}
 
 \CutLine*{1} \CutLine*{2} \CutLine*{3} \CutLine*{4} \CutLine*{5}
 \CutLine*{6}
@@ -105,15 +116,12 @@ in a few minutes. Concepts in Pharo are \emph{very consistent}:
 \end{itemize}
 
 Pharo runs in a \emph{virtual machine}. Development takes place in an
-\emph{image} in which all objects live and can be modified. The state
-of an image can be saved and reloaded later to get all your objects
-and tools back. Image-based development feels really different from
-file-based development.
-
-% Not enough space for that :-( Extracting the source code from the
-% image is done through a dedicated version control system; publishing
-% code can be done on open servers such as
-% \url{http://smalltalkhub.com}.
+\emph{image} in which all objects live and can be modified,
+eliminating the edit/compile/run cycle. Developers share and publish
+their source code using a dedicated version control system and
+services such as \url{http://smalltalkhub.com}. For deployment and
+debugging, the state of a running image can be saved at any point,
+then restored.
 
 \subsection{Minimal Syntax}
 
@@ -122,32 +130,34 @@ file-based development.
         \toprule
         \multicolumn{2}{c}{Six reserved words only}\\
         \midrule
-        \code{nil} & the undefined object\\
-        \code{true}, \code{false} & boolean objects\\
-        \code{self} & the receiver of the current message\\
-        \code{super} & the receiver, in the superclass context\\
-        \code{thisContext} & the current invocation on the call stack\\
+        \textcolor{darkRed}{\code{nil}} & the undefined object\\
+        \textcolor{darkRed}{\code{true}}, \textcolor{darkRed}{\code{false}} & boolean objects\\
+        \textcolor{darkCyan}{\code{self}} & the receiver of the current message\\
+        \textcolor{darkCyan}{\code{super}} & the receiver, in the superclass context\\
+        \textcolor{darkCyan}{\code{thisContext}} & the current invocation on the call stack\\
         \addlinespace
 
         \toprule
         \multicolumn{2}{c}{Reserved punctuation characters}\\
         \midrule
-        \code{"}{comment}\code{"} & \\
-        \code{'}{string}\code{'} & \\
-        \code{\#symbol} & unique string \\
-        \code{\$a} & the character \code{a} \\
-        \code{12 2r1100 16rC} & twelve (decimal, binary, hexadecimal)\\
-        \code{3.14 1.2e3} & floating-point numbers\\
+        \textcolor{comment}{\code{"}{comment}\code{"}} & \\
+        \textcolor{string}{\code{'}{string}\code{'}} & \\
+        \textcolor{string}{\code{\#symbol}} & unique string \\
+        \textcolor{darkRed}{\code{\$a}} & the character \textcolor{darkRed}{\code{a}} \\
+        \textcolor{darkRed}{\code{12 2r1100 16rC}} & twelve (decimal, binary, hexadecimal)\\
+        \textcolor{darkRed}{\code{3.14 1.2e3}} & floating-point numbers\\
         \code{.} & expression separator (period)\\
         \code{;} & message cascade (semicolon)\\
         \code{:=} & {assignment} \\
         \code{\textasciicircum} & return a result from a method (caret)\\
-        \code{[\,:p\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
-        \code{|\,foo bar\,|} & declaration of two temporary variables \\
-        \code{\#(abc 123)} & literal array with the symbol \code{\#abc} and the number \code{123} \\
-        \code{\{foo\,.\ 3\,+\,2\}} & dynamic array built from 2 expressions\\
+        \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
+        \code{|\,\textcolor{darkBlue}{foo bar}\,|} & declaration of two temporary variables \\
+        \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})} & literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
+        \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}} & dynamic array built from 2 expressions\\
         \bottomrule
 \end{tabularx}
+
+\clearpage
 
 \subsection{Message Sending}
 
@@ -156,78 +166,81 @@ A method is called by sending a message to an object, the message
 from natural languages, with a subject, a verb, and complements. There
 are three types of messages: unary, binary, and keyword.
 
-\paragraph{Unary Messages.}
-
-A unary message is one with no arguments.
+A \textbf{unary message} is one with no arguments.
 
 \begin{displaycode}
-Array new.
-#(1 2 3) size.
+\textcolor{darkBlue}{Array} new.
+#(\textcolor{darkRed}{1 2 3}) size.
 \end{displaycode}
 
 The first example creates and returns a new instance of the
-\code{Array} class, by sending the message \code{new} to the class
-\code{Array} (that is an object). The second message returns the size
-of the literal array which is \code{3}.
+\textcolor{darkBlue}{\code{Array}} class, by sending the message \code{new} to the class
+\textcolor{darkBlue}{\code{Array}} (that is an object). The second message returns the size
+of the literal array which is \textcolor{darkRed}{\code{3}}.
 
-\paragraph{Binary Messages.}
-
-A binary message takes only one argument and is named by one or more
-symbol characters.
+A \textbf{binary message} takes only one
+argument and is named by one or more symbol characters.
 
 \begin{displaycode}
-3 + 4.
-'Hello', ' World'.
+\textcolor{darkRed}{3} + \textcolor{darkRed}{4}.
+\textcolor{string}{'Hello'}, \textcolor{string}{' World'}.
 \end{displaycode}
 
-The \code{+} message is sent to the object \code{3} with \code{4} as
-the argument. In the second case, the string \code{'Hello'} receives the message \code{,} (comma) with \code{'~World'} as the argument.
+The \code{+} message is sent to the object
+\textcolor{darkRed}{\code{3}} with \textcolor{darkRed}{\code{4}} as
+the argument. In the second case, the string
+\textcolor{string}{\code{'Hello'}} receives the message \code{,}
+(comma) with \textcolor{string}{\code{'~World'}} as the argument.
 
-\paragraph{Keyword Messages.}
-
-A keyword message can take one or more arguments that are inserted in
-the message name.
+A \textbf{keyword message} can take one or more
+arguments that are inserted in the message name.
 
 \begin{displaycode}
-'Smalltalk' allButFirst: 5.
-3 to: 10 by: 2.
+\textcolor{string}{'Smalltalk'} allButFirst: \textcolor{darkRed}{5}.
+\textcolor{darkRed}{3} to: \textcolor{darkRed}{10} by: \textcolor{darkRed}{2}.
 \end{displaycode}
 
 The first example sends the message \code{allButFirst:} to a string,
-with the argument \code{5}. This returns the string
-\code{'talk'}. The second example sends \code{to:by:} to
-\code{3}, with arguments \code{10} and \code{2}; this
-returns a collection containing \code{3}, \code{5}, \code{7},
-and \code{9}.
+with the argument \textcolor{darkRed}{\code{5}}. This returns the
+string \textcolor{string}{\code{'talk'}}. The second example sends
+\code{to:by:} to \textcolor{darkRed}{\code{3}}, with arguments
+\textcolor{darkRed}{\code{10}} and \textcolor{darkRed}{\code{2}}; this
+returns a collection containing \textcolor{darkRed}{\code{3}},
+\textcolor{darkRed}{\code{5}}, \textcolor{darkRed}{\code{7}}, and
+\textcolor{darkRed}{\code{9}}.
 
-\paragraph{Precedence.}
+\subsection{Precedence}
 
-Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from left to right.
+Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from
+left to right.
 
 \begin{displaycode}
-(10 between: 1 and: 2\,+\,4\,*\,3) not
+(\textcolor{darkRed}{10} between: \textcolor{darkRed}{1} and: \textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}) not
 \end{displaycode}
 
 Here, the messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and finally \code{not}.
 The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}, so
-\code{2\,+\,4\,*\,3} reads left-to-right and gives 18, not 14!
+\code{\textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}} reads left-to-right and gives \textcolor{darkRed}{18}, not \textcolor{darkRed}{14}!
 
-\subsection{Message Cascade}
+\clearpage
+
+\subsection{Cascading Messages}
 
 Multiple messages can be sent to the same receiver with \code{;}.
 
 \begin{displaycode}
-OrderedCollection new
-  add: #abc;
-  add: #def;
-  add: #ghi.
+\textcolor{darkBlue}{OrderedCollection} new
+  add: \textcolor{string}{#abc};
+  add: \textcolor{string}{#def};
+  add: \textcolor{string}{#ghi}.
 \end{displaycode}
 
-The message \code{new} is sent to \code{OrderedCollection} which
-results in a new collection to which 3 \code{add:} messages are sent.
-The value of the whole message cascade is the value of the last
-message sent (here, the symbol \code{\#ghi}). To return the receiver
-of the message cascade instead (\ie the collection), make sure to send
+The message \code{new} is sent to \code{\textcolor{darkBlue}{OrderedCollection}} which
+results in a new collection to which \textcolor{darkRed}{3}
+\code{add:} messages are sent. The value of the whole message cascade
+is the value of the last message sent (here, the symbol
+\textcolor{string}{\code{\#ghi}}). To return the receiver of the
+message cascade instead (\ie the collection), make sure to send
 \code{yourself} as the last message of the cascade.
 
 \subsection{Blocks}
@@ -237,16 +250,44 @@ Blocks are objects containing code that is executed on demand,
 conditionals and loops.
 
 \begin{displaycode}
-2 = 2 ifTrue: [Error signal: 'Help'].
-\#('Hello World' \$!) do: [:e | Transcript show: e]
+\textcolor{darkRed}{2} = \textcolor{darkRed}{2}
+  ifTrue: [\textcolor{darkBlue}{Error} signal: \textcolor{string}{'Help'}].
+\#(\textcolor{string}{'Hello World'} \textcolor{darkRed}{\$!})
+  do: [:\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e}]
 \end{displaycode}
-The first example sends the message \code{ifTrue:} to the boolean
-\code{true} with a block as argument. Because the boolean is
-\code{true}, the block is executed and an exception is signaled. The
-next example sends the message \code{do:} to an array. This evaluates
-the block once for each element, passing it via the \code{e}
-parameter. As a result, \code{Hello~World!} is printed.
 
+The first example sends the message \code{ifTrue:} to the boolean
+\textcolor{darkRed}{\code{true}} (computed from
+\code{\textcolor{darkRed}{2} = \textcolor{darkRed}{2}}) with a block
+as argument. Because the boolean is \textcolor{darkRed}{\code{true}},
+the block is executed and an exception is signaled. The next example
+sends the message \code{do:} to an array. This evaluates the block
+once for each element, passing it via the \code{e} parameter. As a
+result, \code{\textcolor{string}{Hello~World!}} is printed.
+
+\subsection{Unit testing}
+
+Pharo has a minimal still powerful framework that supports the
+creation and deployment of tests. A test must be implemented in a
+method whose name has a \code{test} prefix and in a class that
+subclasses \code{TestCase}.
+
+\begin{displaycode}
+\textcolor{darkBlue}{OrderedCollectionTest}\,>>\,testAdd
+  | \textcolor{darkBlue}{added} |
+  \textcolor{darkBlue}{added} := \textcolor{darkBlue}{collection} add: \textcolor{string}{'foo'}.
+  \textcolor{darkCyan}{self} assert: \textcolor{darkBlue}{added} == \textcolor{string}{'foo'}.
+  \textcolor{darkCyan}{self} assert: (\textcolor{darkBlue}{collection} includes: \textcolor{string}{'foo'}).
+\end{displaycode}
+
+The \code{\textcolor{darkBlue}{OrderedCollectionTest}\,>{}>\,testAdd}
+notation indicates that the following text is the content of the
+method \code{\textbf{testAdd}} in the class
+\code{\textcolor{darkBlue}{OrderedCollectionTest}}. The second line
+declares the variable \code{\textcolor{darkBlue}{added}}. To execute
+unit-tests, open the \code{Test Runner} tool.
+
+\clearpage
 \section{Pharo: a Live Programming Environment}
 
 Pharo comes with an integrated development environment that allows you
@@ -255,53 +296,41 @@ is a \emph{live programming environment}: you can modify your objects
 and your code while your program is executing. All Pharo tools are
 implemented in Pharo:
 \begin{itemize}
-\item a code browser with refactoring tools;
-\item a workspace and object inspectors;
-\item a debugger;
-\item a version control system;
+\item a code browser with refactorings;
+\item a debugger, a workspace, and object inspectors;
 \item and much, much more!
 \end{itemize}
 
 Code can be inspected and evaluated directly in the image, using
-simple key combinations and menus (right click on any selected text to
-see available options).
+simple key combinations and menus (open the contextual menu on any
+selected text to see available options).
 
-\begin{center}
-  \includegraphics[width={.6}\textwidth]{workspace}
-\end{center}
+% \begin{center}
+%   \includegraphics[width={.6}\textwidth]{workspace}
+% \end{center}
 
-\clearpage
 \subsection{The Pharo Code Browser}
 
 The Pharo code browser is composed of 5 panes:
 
 \begin{itemize}
-\item The \emph{packages} pane shows all the packages of the system or
-  just a subset (by \emph{scoping} the browser);
+\item The \emph{packages} pane shows all the packages of the system;
 \item The \emph{classes} pane shows a hierarchy of the classes in the
-  selected package; in gray, the classes that are extended in the
-  selected package but that belong to another one; the \emph{class
-    side} checkbox allows for getting the methods of the meta-class of
-  the selected class; the \emph{comments} button toggles the display
-  of the current class's comment;
+  selected package; the \emph{class side} checkbox allows for getting
+  the methods of the metaclass; the \emph{comments} button toggles the
+  display of the class's comment;
 \item The \emph{protocols} pane groups the methods in the selected
-  class; protocols facilitate searching for a method when the
-  developer does not know its name; a protocol whose name starts with a
-  \emph{*} (star) groups methods that belong to a different package
-  than the one of the selected class (\eg the
-  \emph{*Morphic-Basic} protocol groups methods that belong
-  to the \emph{Morphic-Basic} package);
+  class to facilitate searching for a method when its name is not
+  known; when a protocol name starts with a \emph{*}, methods of this
+  protocol belong to a different package (\eg the \emph{*Fuel}
+  protocol groups methods that belong to the \emph{Fuel} package);
 \item The \emph{methods} pane lists the methods of the selected
-  protocol (or of the class if no protocol is selected); a down-arrow
-  icon in front of a method indicates a method overridden in at least
-  one subclass; an up-arrow icon indicates that the current method
-  overrides one from the superclass; icons are clickable and trigger
-  dedicated actions based on their meanings;
-\item The \emph{source code} pane shows the source code of the select
-  method; the first 3 icons on the right allows for seeing the source
-  code (\emph{S}), bytecode (\emph{B}), and decompiled code
-  (\emph{D}); the following 2 icons allows for finding usages of
-  instance and class variables (\emph{I} and \emph{C}).
+  protocol; a down-arrow (resp. up-arrow) icon in front of a method
+  indicates a method overridden in at least one subclass (resp.
+  superclass); icons are clickable and trigger special actions;
+\item The \emph{source code} pane shows the source code of the
+  selected method. If the source code gets too long, the background
+  color starts changing indicating it is time for refactoring!
 \end{itemize}
 
 \begin{center}
