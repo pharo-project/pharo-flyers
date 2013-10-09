@@ -341,6 +341,25 @@ The Pharo code browser is composed of 5 panes:
 
 \vspace*{\fill}
 
+
+\section{A simple, uniform and powerful model}
+
+Pharo has a simple dynamically-typed object model:
+
+\begin{itemize}
+\item everything is an object - instance of a class.
+\item classes are object too.
+\item there is single inheritance between classes.
+\item traits are group of methods that can be reused orthogonally to inheritance.
+\item instance variables are protected.
+\item methods are public. 
+\item blocks are lexical closure a.k.a. anonymous methods.
+\item all computation happens via message sends (and variable assignment).
+\end{itemize}
+
+There is no: type declaration, primitive object, generic, modifier, operator, inner classes, 
+static method.
+
 \section{Books}
 
 
@@ -349,8 +368,11 @@ The Pharo code browser is composed of 5 panes:
   (also available through amazon.com)\\
   \url{http://pharobyexample.org}
 \item[Deep into Pharo]
-  (soon to be released)\\
-  \url{https://ci.inria.fr/pharo-contribution/job/DeepIntoPharo}
+	(also available through amazon.com)\\
+  \url{http://deepintopharo.com}
+\item[Enterprise Pharo]
+  (drafts of future book)\\
+  \url{https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/ws/}
 \item[More related books]~\\
     \url{http://stephane.ducasse.free.fr/FreeBooks}
 \end{description}
@@ -364,6 +386,7 @@ The Pharo code browser is composed of 5 panes:
 \item[Code hosting] \url{http://smalltalkhub.com}
 \item[Questions] \url{http://stackoverflow.com/questions/tagged/pharo}
 \item[Consortium] \url{http://consortium.pharo.org}
+\item[Association] \url{http://contributors.pharo.org}
 \item[Association] \url{http://association.pharo.org}
 \end{description}
 
