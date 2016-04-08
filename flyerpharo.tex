@@ -162,9 +162,9 @@ then restored.
 
 \subsection{Message Sending}
 
-A method is called by sending a message to an object, the message
-\emph{receiver}; the message returns an object. Messages are modeled
-from natural languages, with a subject, a verb, and complements. There
+A method is invoked by sending a message to an object, the message
+\emph{receiver}; the message returns an object. Messages syntax mimics
+natural languages, with a subject, a verb, and complements. There
 are three types of messages: unary, binary, and keyword.
 
 A \textbf{unary message} is one with no arguments.
@@ -197,13 +197,13 @@ A \textbf{keyword message} can take one or more
 arguments that are inserted in the message name.
 
 \begin{displaycode}
-\textcolor{string}{'Smalltalk'} allButFirst: \textcolor{darkRed}{5}.
+\textcolor{string}{'Pharo'} allButFirst: \textcolor{darkRed}{2}.
 \textcolor{darkRed}{3} to: \textcolor{darkRed}{10} by: \textcolor{darkRed}{2}.
 \end{displaycode}
 
 The first example sends the message \code{allButFirst:} to a string,
-with the argument \textcolor{darkRed}{\code{5}}. This returns the
-string \textcolor{string}{\code{'talk'}}. The second example sends
+with the argument \textcolor{darkRed}{\code{2}}. This returns the
+string \textcolor{string}{\code{'aro'}}. The second example sends
 \code{to:by:} to \textcolor{darkRed}{\code{3}}, with arguments
 \textcolor{darkRed}{\code{10}} and \textcolor{darkRed}{\code{2}}; this
 returns a collection containing \textcolor{darkRed}{\code{3}},
@@ -219,7 +219,7 @@ left to right.
 (\textcolor{darkRed}{10} between: \textcolor{darkRed}{1} and: \textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}) not
 \end{displaycode}
 
-Here, the messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and finally \code{not}.
+Here, the messages \code{+} and \code{*} are sent first, then the message \code{between:and:} is sent, and finally \code{not}.
 The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}, so
 \code{\textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}} reads left-to-right and gives \textcolor{darkRed}{18}, not \textcolor{darkRed}{14}!
 
@@ -237,7 +237,7 @@ Multiple messages can be sent to the same receiver with \code{;}.
 \end{displaycode}
 
 The message \code{new} is sent to \code{\textcolor{darkBlue}{OrderedCollection}} which
-results in a new collection to which 3
+results in a new collection to which three
 \code{add:} messages are sent. The value of the whole message cascade
 is the value of the last message sent (here, the symbol
 \textcolor{string}{\code{\#ghi}}). To return the receiver of the
@@ -253,6 +253,7 @@ conditionals and loops.
 \begin{displaycode}
 \textcolor{darkRed}{2} = \textcolor{darkRed}{2}
   ifTrue: [\textcolor{darkBlue}{Error} signal: \textcolor{string}{'Help'}].
+  
 \#(\textcolor{string}{'Hello World'} \textcolor{darkRed}{\$!})
   do: [:\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e}]
 \end{displaycode}
@@ -267,10 +268,7 @@ once for each element, passing it via the \code{e} parameter. As a
 result, \code{\textcolor{string}{Hello~World!}} is printed.
 
 \subsection{Unit testing}
-
-Pharo has a minimal still powerful framework that supports the
-creation and deployment of tests. A test must be implemented in a
-method whose name has a \code{test} prefix and in a class that
+ A test must be implemented in a method whose name has a \code{test} prefix and in a class that
 subclasses \code{TestCase}.
 
 \begin{displaycode}
@@ -353,8 +351,8 @@ Pharo has a simple dynamically-typed object model:
 \item there is single inheritance between classes;
 \item traits are groups of methods that can be reused orthogonally to inheritance;
 \item instance variables are protected;
-\item methods are public;
-\item blocks are lexical closure a.k.a. anonymous methods;
+\item methods are public and virtual;
+\item blocks are lexical closures a.k.a. anonymous methods;
 \item computation happens only via message sends (and variable assignment).
 \end{itemize}
 
@@ -365,17 +363,17 @@ Pharo!
 
 \section{Books}
 
-
+All Pharo books are available at: \url{http://books.pharo.org}
 \begin{description}
 \item[Pharo By Example]
-  (also available through amazon.com)\\
-  \url{http://pharobyexample.org}
+  (also available through amazon.com)
 \item[Deep into Pharo]
-  (also available through amazon.com)\\
-  \url{http://deepintopharo.com}
-\item[Enterprise Pharo]
-  (draft of future book)\\
-  \url{https://ci.inria.fr/pharo-contribution/job/PharoForTheEnterprise/ws/}
+  (also available through amazon.com)
+\item [Enterprise Pharo: a Web Perspective]
+\item [Numerical Methods in Pharo]
+\item [TinyBlog Tutorial]
+\item [Dynamic Web Development in Seaside] 
+(\url{http://book.seaside.st})
 \item[More books]~\\
     \url{http://stephane.ducasse.free.fr/FreeBooks}
 \end{description}
@@ -387,7 +385,7 @@ Pharo!
 \begin{description}
  \item[Main website] \url{http://www.pharo.org}
  \item[Code hosting] \url{http://smalltalkhub.com}
- \item[Questions]    \url{http://stackoverflow.com/questions/tagged/pharo}
+ \item[Questions]    \url{https://pharoproject.slack.com/messages/general/}
  \item[Contributors] \url{http://contributors.pharo.org}
  \item[Topics]       \url{http://topics.pharo.org}
  \item[Consortium]   \url{http://consortium.pharo.org}
