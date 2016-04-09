@@ -374,10 +374,12 @@ Object subclass: #Counter
    package: 'MyCounter'
 \end{displaycode}
 
-The method \code{initialize} is automatically invoked when a new instance is created by sending the message \code{new} to the class i.e., \code{Counter new}. 
+The method \code{initialize} is automatically invoked when a new instance is created by sending the message \code{new} to the class i.e., \code{Counter new}.   \code{\textcolor{darkBlue}{Counter}\,>{}>\,initialize}
+is a \textit{notation} to indicate that the following text is the content of the method \code{\textbf{initialize}} in the class
+\code{\textcolor{darkBlue}{Counter}}.
 
 \begin{displaycode}
-initialize 
+\textit{Counter >>} initialize 
     super initialize.
     count := 0. 
 \end{displaycode}
@@ -388,7 +390,7 @@ Class methods follow the same dynamic lookup than instance methods.
 Method \code{factorial} defined in class \ct{Integer}. 
 
 \begin{displaycode}
-factorial   "Answer the factorial of the receiver."   self = 0 ifTrue: [^ 1].   self > 0 ifTrue: [^ self * (self - 1) factorial].
+\textit{Integer >>} factorial   "Answer the factorial of the receiver."   self = 0 ifTrue: [^ 1].   self > 0 ifTrue: [^ self * (self - 1) factorial].
 \end{displaycode}
 
 %\pagebreak{}
@@ -401,18 +403,15 @@ A test must be implemented in a method whose name starts with \code{test} and in
 inherits from \code{TestCase}.
 
 \begin{displaycode}
-\textcolor{darkBlue}{OrderedCollectionTest}\,>>\,testAdd
+\textcolor{darkBlue}{\textit{OrderedCollectionTest}\,>>}\,testAdd
   | \textcolor{darkBlue}{added} |
   \textcolor{darkBlue}{added} := \textcolor{darkBlue}{collection} add: \textcolor{string}{'foo'}.
   \textcolor{darkCyan}{self} assert: \textcolor{darkBlue}{added} == \textcolor{string}{'foo'}.
   \textcolor{darkCyan}{self} assert: (\textcolor{darkBlue}{collection} includes: \textcolor{string}{'foo'}).
 \end{displaycode}
 
-The \code{\textcolor{darkBlue}{OrderedCollectionTest}\,>{}>\,testAdd}
-notation indicates that the following text is the content of the
-method \code{\textbf{testAdd}} in the class
-\code{\textcolor{darkBlue}{OrderedCollectionTest}}. The second line
-declares the variable \code{\textcolor{darkBlue}{added}}. \code{assert:} checks values.
+ The second line
+declares the variable \code{\textcolor{darkBlue}{added}}. The message \code{assert:} expects a true value.
 
 
 \section{A simple, uniform and powerful model}
