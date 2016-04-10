@@ -78,15 +78,14 @@
 
 \graphicspath{{./figures/}}
 
-\title{
-\normalfont
-\includegraphics[width=0.7\linewidth]{logo.pdf}
+\title{\normalfont
+\includegraphics[width=0.6\linewidth]{logo.pdf}
 \\[1.2\baselineskip]%
 \fontseries{cl}\selectfont\Large
 An innovative, open-source Smalltalk-inspired language \\for live programming\\
 \url{http://www.pharo.org}}
 \date{}
-\setmargins{8mm}{8mm}{8mm}{8mm}
+\setmargins{7.8mm}{7.8mm}{7.8mm}{7.8mm}
 \CutLine*{1} \CutLine*{2} \CutLine*{3} \CutLine*{4} \CutLine*{5}\CutLine*{6}
 
 \begin{document}
@@ -182,9 +181,7 @@ Java: d.put("1", "Chocolate");
 Pharo: d at: '1' put: 'Chocolate'.
 \end{displaycode}
 
-\subsection{Three Types of Messages}
-There
-are three types of messages: unary, binary, and keyword.
+\subsection{Three Types of Messages: Unary, Binary, and Keyword}
 
 A \textbf{unary message} is one with no arguments.
 
@@ -338,9 +335,7 @@ selected text to see available options).
 %   \includegraphics[width={.6}\textwidth]{workspace}
 % \end{center}
 
-\subsection{The Pharo Code Browser}
-
-The Pharo code browser is composed of 5 panes:
+\subsection{The 5 Panes Pharo Code Browser}
 
 \begin{itemize}
 \item The \emph{packages} pane shows all the packages of the system.
@@ -361,8 +356,6 @@ The Pharo code browser is composed of 5 panes:
   \includegraphics[width=\textwidth]{nautilus-anotated}
 \end{center}
 
-To add a package: first column + menu add package
-
 \subsection{Defining a class}
 To add a class, edit the proposed template!
 The following expression defines the class \code{Counter} as a subclass of \code{Object}.
@@ -370,13 +363,12 @@ It defines two instance variables \code{count} and \code{initialValue} inside th
 
 \begin{displaycode}
 Object subclass: #Counter
-   instanceVariableNames: 'count initialValue'   classVariableNames: '' 
+   instanceVariableNames: 'count initialValue'
+   classVariableNames: '' 
    package: 'MyCounter'
 \end{displaycode}
 
-The method \code{initialize} is automatically invoked when a new instance is created by sending the message \code{new} to the class i.e., \code{Counter new}.   \code{\textcolor{darkBlue}{Counter}\,>{}>\,initialize}
-is a \textit{notation} to indicate that the following text is the content of the method \code{\textbf{initialize}} in the class
-\code{\textcolor{darkBlue}{Counter}}.
+The method \code{initialize} is automatically invoked when a new instance is created by sending the message \code{new} to the class i.e., \code{Counter new}.   
 
 \begin{displaycode}
 \textit{Counter >>} initialize 
@@ -384,13 +376,18 @@ is a \textit{notation} to indicate that the following text is the content of the
     count := 0. 
 \end{displaycode}
 
+\code{\textcolor{darkBlue}{\textit{Counter}\,>{}>\,}initialize} is a \textit{notation} to indicate that the following text is the content of the method \code{\textbf{initialize}} in the class \code{\textcolor{darkBlue}{Counter}}.
+
 \subsection{Methods}
 Methods are public and virtual. There are always looked up in the class of the receiver. By default a method returns \code{self}. 
 Class methods follow the same dynamic lookup than instance methods. 
 Method \code{factorial} defined in class \ct{Integer}. 
 
 \begin{displaycode}
-\textit{Integer >>} factorial   "Answer the factorial of the receiver."   self = 0 ifTrue: [^ 1].   self > 0 ifTrue: [^ self * (self - 1) factorial].
+\textit{Integer >>} factorial
+   "Answer the factorial of the receiver."
+   self = 0 ifTrue: [^ 1].
+   self > 0 ifTrue: [^ self * (self - 1) factorial].
 \end{displaycode}
 
 %\pagebreak{}
@@ -433,7 +430,7 @@ Pharo!
 
 
 
-\vfill{}
+%\vfill{}
 
 \end{document}
 
