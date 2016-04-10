@@ -79,11 +79,12 @@
 
 \graphicspath{{./figures/}}
 
-\title{\normalfont
-\includegraphics[width=0.6\linewidth]{logo.pdf}
+\title{\vspace{-1.0cm}\normalfont
+\includegraphics[width=0.8\linewidth]{logo.pdf}
 \\[1.2\baselineskip]%
-\fontseries{cl}\selectfont\Large
-An innovative, open-source Smalltalk-inspired language \\for live programming\\
+\vspace{-0.8cm}
+\fontseries{cl}\selectfont\LARGE
+An innovative, open-source Smalltalk-inspired \\ language for live programming\\
 \url{http://www.pharo.org}}
 \date{}
 \setmargins{7.8mm}{7.8mm}{7.8mm}{7.8mm}
@@ -92,6 +93,7 @@ An innovative, open-source Smalltalk-inspired language \\for live programming\\
 \begin{document}
 \maketitle
 \thispagestyle{empty}
+\vspace{-1.7cm}
 Pharo is both an \emph{object-oriented}, \emph{dynamically-typed}
 general-purpose language and its own programming environment. The
 language has a simple and expressive syntax which can be learned
@@ -112,25 +114,21 @@ in a few minutes. Concepts in Pharo are \emph{very consistent}:
  \item[Association]  \url{http://association.pharo.org}
 \end{description}
 
-All Pharo books are available at: \url{http://books.pharo.org}
-\begin{description}
-\item[Pharo By Example]
-  (also available through amazon.com)
-\item[Deep into Pharo]
-  (also available through amazon.com)
-\item [Enterprise Pharo: a Web Perspective]
-\item [Numerical Methods in Pharo]
-\item [TinyBlog Tutorial]
-\item [Dynamic Web Development in Seaside]~\\ 
+\subsection{PharoBooks}
+
+\textbf{Pharo books} are available at: \url{http://books.pharo.org}\\
+Pharo By Example, Deep into Pharo, Enterprise Pharo: a Web Perspective,
+Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seaside 
 (\url{http://book.seaside.st})
-\item[More books] \url{http://stephane.ducasse.free.fr/FreeBooks}
-\end{description}
+
+\textbf{More books} \url{http://stephane.ducasse.free.fr/FreeBooks}
 
 
-\pagebreak{}
+
+%\pagebreak{}
+
 
 \subsection{Minimal Syntax}
-
 \noindent
 \begin{tabularx}{\linewidth}{@{}rX@{}}
         \toprule
@@ -141,24 +139,27 @@ All Pharo books are available at: \url{http://books.pharo.org}
         \textcolor{darkCyan}{\code{self}} & the receiver of the current message\\
         \textcolor{darkCyan}{\code{super}} & the receiver, in the superclass context\\
         \textcolor{darkCyan}{\code{thisContext}} & the current invocation on the call stack\\
-        \addlinespace
+\end{tabularx}
 
+\subsection{Minimal Syntax (II)}
+\noindent
+\begin{tabularx}{\linewidth}{@{}rX@{}}
         \toprule
         \multicolumn{2}{c}{Reserved syntactic constructs}\\
         \midrule
         \textcolor{comment}{\code{"}{comment}\code{"}} & \\
         \textcolor{string}{\code{'}{string}\code{'}} & \\
         \textcolor{string}{\code{\#symbol}} & unique string \\
-        \textcolor{darkRed}{\code{\$a}} & the character \textcolor{darkRed}{\code{a}} \\
+        \textcolor{darkRed}{\code{\$a}}, Character space & the character \textcolor{darkRed}{\code{a}} and a space \\
         \textcolor{darkRed}{\code{12 2r1100 16rC}} & twelve (decimal, binary, hexadecimal)\\
         \textcolor{darkRed}{\code{3.14 1.2e3}} & floating-point numbers\\
         \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})} & literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
         \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}} & dynamic array built from 2 expressions\\
         \code{\#[\textcolor{darkRed}{123 21 255}]} & byte array \\
-        \code{exp.} & expression separator (period)\\
+        \code{\emph{exp1}. \emph{exp2}} & expression separator (period)\\
         \code{;} & message cascade (semicolon)\\
-        \code{var := expr} & {assignment} \\
-        \code{\textasciicircum expr} & return a result from a method (caret)\\
+        \code{var := \emph{expr}} & {assignment} \\
+        \code{\textasciicircum\ \emph{expr}} & return a result from a method (caret)\\
         \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
         \code{|\,\textcolor{darkBlue}{foo bar}\,|} & declaration of two temporary variables \\
         \bottomrule
@@ -167,16 +168,15 @@ All Pharo books are available at: \url{http://books.pharo.org}
 %\clearpage
 
 \subsection{Message Sending}
-
-A method is invoked by sending a message to an object, the message
-\emph{receiver}; the message returns an object. Messages syntax mimics
+When we send a message to an object, the message
+\emph{receiver}, the method is selected and executed; the message returns an object. Messages syntax mimics
 natural languages, with a subject, a verb, and complements. 
 
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
         \toprule
-        Java & Pharo\\
+        \textbf{Java} & \textbf{Pharo}\\
         %\multicolumn{2}{c}{\textbf{Conditionals}}\\
         \midrule
       aColor.setRGB(0.2,0.3,0) & aColor r: 0.2 g: 0.3 b: 0 \\
@@ -197,7 +197,7 @@ A \textbf{unary message} is one with no arguments.
        \midrule
 \end{tabularx}
 
-\code{new} is an unary message sent to classes. 
+\code{new} is an unary message sent to classes (classes are objects). 
 
 A \textbf{binary message} takes only one
 argument and is named by one or more symbol characters from \code{+}, \code{-}, \code{*}, \code{=}, \code{<}, \code{>}, ...
@@ -213,7 +213,7 @@ argument and is named by one or more symbol characters from \code{+}, \code{-}, 
 
 The \code{+} message is sent to the object
 \textcolor{darkRed}{\code{3}} with \textcolor{darkRed}{\code{4}} as
-the argument. The string \textcolor{string}{\code{'Hello'}} receives the message \code{,}
+ argument. The string \textcolor{string}{\code{'Hello'}} receives the message \code{,}
 (comma) with \textcolor{string}{\code{'~World'}} as the argument.
 
 A \textbf{keyword message} can take one or more
@@ -234,7 +234,7 @@ returns an interval containing \textcolor{darkRed}{\code{3}},
 \textcolor{darkRed}{\code{5}}, \textcolor{darkRed}{\code{7}}, and
 \textcolor{darkRed}{\code{9}}.
 
-\subsection{Precedence}
+\subsection{Message Precedence}
 
 Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from
 left to right.
@@ -249,7 +249,7 @@ The rule suffers no exception: operators are just binary messages with \emph{no 
 
 %\clearpage
 
-\subsection{Cascading Messages}
+\subsection{Cascade: Sending Muliple Messages to the Same Object}
 
 Multiple messages can be sent to the same receiver with \code{;}.
 
@@ -275,7 +275,8 @@ conditionals \& loops.
 \begin{displaycode}
 \textcolor{darkRed}{2} = \textcolor{darkRed}{2}
   ifTrue: [ \textcolor{darkBlue}{Error} signal: \textcolor{string}{'Help'} ].
-  
+\end{displaycode}
+\begin{displaycode}
 \#(\textcolor{string}{'Hello World'} \textcolor{darkRed}{\$!})
   do: [ :\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e} ]
 \end{displaycode}
@@ -325,15 +326,19 @@ Collections start at 1. Messages \code{at: index} gives element at index and \ct
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
      \toprule
+      \multicolumn{2}{c}{\textbf{Collections}}\\
+      \midrule
      \textcolor{string}{\#(4 2 1) at: 3}& $\rightsquigarrow$ 1 \\
      \textcolor{string}{\#(4 2 1) at: 3 put: 6}& $\rightsquigarrow$ \#(4 2 6) \\
      \textcolor{string}{Set new add: 4; add: 4; yourself}& $\rightsquigarrow$ aSet \\
-          \midrule
+     \midrule
 \end{tabularx}
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
-     \toprulework := FileSystem disk workingDirectory. \\
+     \toprule
+     \multicolumn{2}{c}{\textbf{Files and Streams}}\\
+      \midrulework := FileSystem disk workingDirectory. \\
 stream := (work / 'foo.txt') writeStream. \\
 stream nextPutAll: 'Hello World'. \\stream close. \\stream := (work / 'foo.txt') readStream. \\
 stream contents. & $\rightsquigarrow$ 'Hello World' \\
@@ -430,7 +435,6 @@ inherits from \code{TestCase}.
 \textcolor{darkBlue}{\textit{OrderedCollectionTest}\,>>}\,testAdd
   | \textcolor{darkBlue}{added} |
   \textcolor{darkBlue}{added} := \textcolor{darkBlue}{collection} add: \textcolor{string}{'foo'}.
-  \textcolor{darkCyan}{self} assert: \textcolor{darkBlue}{added} == \textcolor{string}{'foo'}.
   \textcolor{darkCyan}{self} assert: (\textcolor{darkBlue}{collection} includes: \textcolor{string}{'foo'}).
 \end{displaycode}
 
