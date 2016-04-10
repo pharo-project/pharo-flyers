@@ -11,6 +11,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage{amssymb}
 
 \usepackage[default,scale=.82]{opensans}
 % \renewcommand{\seriesdefault}{cl}
@@ -143,7 +144,7 @@ All Pharo books are available at: \url{http://books.pharo.org}
         \addlinespace
 
         \toprule
-        \multicolumn{2}{c}{Reserved punctuation characters}\\
+        \multicolumn{2}{c}{Reserved syntactic constructs}\\
         \midrule
         \textcolor{comment}{\code{"}{comment}\code{"}} & \\
         \textcolor{string}{\code{'}{string}\code{'}} & \\
@@ -154,10 +155,10 @@ All Pharo books are available at: \url{http://books.pharo.org}
         \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})} & literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
         \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}} & dynamic array built from 2 expressions\\
         \code{\#[\textcolor{darkRed}{123 21 255}]} & byte array \\
-        \code{.} & expression separator (period)\\
+        \code{exp.} & expression separator (period)\\
         \code{;} & message cascade (semicolon)\\
-        \code{:=} & {assignment} \\
-        \code{\textasciicircum} & return a result from a method (caret)\\
+        \code{var := expr} & {assignment} \\
+        \code{\textasciicircum expr} & return a result from a method (caret)\\
         \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
         \code{|\,\textcolor{darkBlue}{foo bar}\,|} & declaration of two temporary variables \\
         \bottomrule
@@ -171,58 +172,65 @@ A method is invoked by sending a message to an object, the message
 \emph{receiver}; the message returns an object. Messages syntax mimics
 natural languages, with a subject, a verb, and complements. 
 
-\begin{displaycode}
-Java: aColor.setRGB(0.2,0.3,0)  
-Pharo: aColor r: 0.2 g: 0.3 b: 0 
-\end{displaycode}
 
-\begin{displaycode}
-Java: d.put("1", "Chocolate"); 
-Pharo: d at: '1' put: 'Chocolate'.
-\end{displaycode}
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+        \toprule
+        Java & Pharo\\
+        %\multicolumn{2}{c}{\textbf{Conditionals}}\\
+        \midrule
+      aColor.setRGB(0.2,0.3,0) & aColor r: 0.2 g: 0.3 b: 0 \\
+      d.put("1", "Chocolate");& d at: '1' put: 'Chocolate'.\\
+       \midrule
+\end{tabularx}
+
 
 \subsection{Three Types of Messages: Unary, Binary, and Keyword}
 
 A \textbf{unary message} is one with no arguments.
 
-\begin{displaycode}
-\textcolor{darkBlue}{Array} new.
-#(\textcolor{darkRed}{1 2 3}) size.
-\end{displaycode}
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+        \toprule
+      \textcolor{darkBlue}{Array} new.& $\rightsquigarrow$ anArray \\
+      \#(\textcolor{darkRed}{4 2 1}) size.& $\rightsquigarrow$ 3\\
+       \midrule
+\end{tabularx}
 
-The first example creates and returns a new instance of the
-\textcolor{darkBlue}{\code{Array}} class, by sending the message \code{new} to the class
-\textcolor{darkBlue}{\code{Array}} (that is an object). The second message returns the size
-of the literal array which is \textcolor{darkRed}{\code{3}}.
+\code{new} is an unary message sent to classes. 
 
 A \textbf{binary message} takes only one
-argument and is named by one or more symbol characters.
+argument and is named by one or more symbol characters from \code{+}, \code{-}, \code{*}, \code{=}, \code{<}, \code{>}, ...
 
-\begin{displaycode}
-\textcolor{darkRed}{3} + \textcolor{darkRed}{4}.
-\textcolor{string}{'Hello'}, \textcolor{string}{' World'}.
-\end{displaycode}
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+        \toprule
+      \textcolor{darkRed}{3} + \textcolor{darkRed}{4}& $\rightsquigarrow$ 7 \\
+     \textcolor{string}{'Hello'} , \textcolor{string}{' World'}& $\rightsquigarrow$ 'Hello World'\\
+       \midrule
+\end{tabularx}
+
 
 The \code{+} message is sent to the object
 \textcolor{darkRed}{\code{3}} with \textcolor{darkRed}{\code{4}} as
-the argument. In the second case, the string
-\textcolor{string}{\code{'Hello'}} receives the message \code{,}
+the argument. The string \textcolor{string}{\code{'Hello'}} receives the message \code{,}
 (comma) with \textcolor{string}{\code{'~World'}} as the argument.
 
 A \textbf{keyword message} can take one or more
 arguments that are inserted in the message name.
 
-\begin{displaycode}
-\textcolor{string}{'Pharo'} allButFirst: \textcolor{darkRed}{2}.
-\textcolor{darkRed}{3} to: \textcolor{darkRed}{10} by: \textcolor{darkRed}{2}.
-\end{displaycode}
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+        \toprule
+     \textcolor{string}{'Pharo'} allButFirst: \textcolor{darkRed}{2}.& $\rightsquigarrow$ 'aro' \\
+     \textcolor{darkRed}{3} to: \textcolor{darkRed}{10} by: \textcolor{darkRed}{2}.& $\rightsquigarrow$ (3 to: 10 by: 2)\\
+       \midrule
+\end{tabularx}
 
-The first example sends the message \code{allButFirst:} to a string,
-with the argument \textcolor{darkRed}{\code{2}}. This returns the
-string \textcolor{string}{\code{'aro'}}. The second example sends
+The second example sends
 \code{to:by:} to \textcolor{darkRed}{\code{3}}, with arguments
 \textcolor{darkRed}{\code{10}} and \textcolor{darkRed}{\code{2}}; this
-returns a collection containing \textcolor{darkRed}{\code{3}},
+returns an interval containing \textcolor{darkRed}{\code{3}},
 \textcolor{darkRed}{\code{5}}, \textcolor{darkRed}{\code{7}}, and
 \textcolor{darkRed}{\code{9}}.
 
@@ -235,8 +243,8 @@ left to right.
 (\textcolor{darkRed}{10} between: \textcolor{darkRed}{1} and: \textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}) not
 \end{displaycode}
 
-Here, the messages \code{+} and \code{*} are sent first, then the message \code{between:and:} is sent, and finally \code{not}.
-The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}, so
+Messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and \code{not}.
+The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}.
 \code{\textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}} reads left-to-right and gives \textcolor{darkRed}{18}, not \textcolor{darkRed}{14}!
 
 %\clearpage
@@ -253,7 +261,7 @@ Multiple messages can be sent to the same receiver with \code{;}.
 \end{displaycode}
 
 The message \code{new} is sent to \code{\textcolor{darkBlue}{OrderedCollection}} which
-results in a new collection to which three
+returns a new collection to which three
 \code{add:} messages are sent. The value of the whole message cascade
 is the value of the last message sent (here, the symbol
 \textcolor{string}{\code{\#ghi}}). To return the receiver of the
@@ -261,16 +269,15 @@ message cascade instead (\ie the collection), make sure to send
 \code{yourself} as the last message of the cascade.
 
 \subsection{Blocks}
-Blocks are objects containing code that is executed on demand,
-(anonymous functions). They are the basis for control structures like
-conditionals and loops.
+Blocks are objects containing code that is executed on demand. They are the basis for control structures like
+conditionals \& loops.
 
 \begin{displaycode}
 \textcolor{darkRed}{2} = \textcolor{darkRed}{2}
-  ifTrue: [\textcolor{darkBlue}{Error} signal: \textcolor{string}{'Help'}].
+  ifTrue: [ \textcolor{darkBlue}{Error} signal: \textcolor{string}{'Help'} ].
   
 \#(\textcolor{string}{'Hello World'} \textcolor{darkRed}{\$!})
-  do: [ :\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e}]
+  do: [ :\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e} ]
 \end{displaycode}
 
 The first example sends the message \code{ifTrue:} to the boolean
@@ -306,13 +313,32 @@ result, \code{\textcolor{string}{Hello~World!}} is printed.
          for(int i=1; i<11; i++)\{ & 1 to: 11 do: [ :i | \\
       \ \ \ \    System.out.println(i); \}&\ \ \ \ Transcript show: i ; cr ] \\
       \midrule
-String [] names =\{"A", "B", "C"\};& names := \#('A' 'B' 'C'). \\  
-for( String name : names ) \{ &names do: [ :each |\\
-   \ \      System.out.print( name ); & \ \ \ Transcript show: each, ' , ' ]\\
-    \ \     System.out.print(","); \} & \\
+String [] names =\{"A", "B", "C"\};& | names | \\  
+for( String name : names ) \{ &names := \#('A' 'B' 'C').\\
+   \ \      System.out.print( name ); & names do: [ :each |\\
+    \ \     System.out.print(","); \} & \ \ \ Transcript show: each, ' , ' ]\\
      \midrule
 \end{tabularx}
 
+Collections start at 1. Messages \code{at: index} gives element at index and \ct{at: index put: value} set element at index to value.
+
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+     \toprule
+     \textcolor{string}{\#(4 2 1) at: 3}& $\rightsquigarrow$ 1 \\
+     \textcolor{string}{\#(4 2 1) at: 3 put: 6}& $\rightsquigarrow$ \#(4 2 6) \\
+     \textcolor{string}{Set new add: 4; add: 4; yourself}& $\rightsquigarrow$ aSet \\
+          \midrule
+\end{tabularx}
+
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+     \toprulework := FileSystem disk workingDirectory. \\
+stream := (work / 'foo.txt') writeStream. \\
+stream nextPutAll: 'Hello World'. \\stream close. \\stream := (work / 'foo.txt') readStream. \\
+stream contents. & $\rightsquigarrow$ 'Hello World' \\
+stream close.
+\end{tabularx}
 
 %\clearpage
 \section{Pharo: a Live Programming Environment}
@@ -337,6 +363,10 @@ selected text to see available options).
 
 \subsection{The 5 Panes Pharo Code Browser}
 
+\begin{center}
+  \includegraphics[width=0.8\textwidth]{nautilus-anotated}
+\end{center}
+
 \begin{itemize}
 \item The \emph{packages} pane shows all the packages of the system.
 \item The \emph{classes} pane shows the class hierarchy of the
@@ -352,9 +382,6 @@ selected text to see available options).
   selected method. 
 \end{itemize}
 
-\begin{center}
-  \includegraphics[width=\textwidth]{nautilus-anotated}
-\end{center}
 
 \subsection{Defining a class}
 To add a class, edit the proposed template!
@@ -407,14 +434,11 @@ inherits from \code{TestCase}.
   \textcolor{darkCyan}{self} assert: (\textcolor{darkBlue}{collection} includes: \textcolor{string}{'foo'}).
 \end{displaycode}
 
- The second line
-declares the variable \code{\textcolor{darkBlue}{added}}. The message \code{assert:} expects a true value.
-
+The second line declares the variable \code{\textcolor{darkBlue}{added}}. The message \code{assert:} expects a true value.
 
 \section{A simple, uniform and powerful model}
 
 Pharo has a simple dynamically-typed object model:
-
 \begin{itemize}
 \item everything is an object --- instance of a class;
 \item classes are objects too and there is single inheritance between classes;
