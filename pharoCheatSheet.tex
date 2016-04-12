@@ -84,7 +84,7 @@
 \\[1.2\baselineskip]%
 \vspace{-0.8cm}
 \fontseries{cl}\selectfont\LARGE
-An innovative, open-source Smalltalk-inspired \\ language for live programming\\
+An innovative, open-source Smalltalk-inspired \\ language and system for live programming\\
 \url{http://www.pharo.org}}
 \date{}
 \setmargins{7.8mm}{7.8mm}{7.8mm}{7.8mm}
@@ -158,7 +158,8 @@ Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seasid
         \code{\#[\textcolor{darkRed}{123 21 255}]} & byte array \\
         \code{\emph{exp1}. \emph{exp2}} & expression separator (period)\\
         \code{;} & message cascade (semicolon)\\
-        \code{var := \emph{expr}} & {assignment} \\
+        \code{var := \emph{expr}} & assignment \\
+        \code{<\emph{selector: var}>} & method annotation  \\
         \code{\textasciicircum\ \emph{expr}} & return a result from a method (caret)\\
         \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} & code block with a parameter \\
         \code{|\,\textcolor{darkBlue}{foo bar}\,|} & declaration of two temporary variables \\
@@ -338,9 +339,12 @@ Collections start at 1. Messages \code{at: index} gives element at index and \ct
 \begin{tabularx}{\linewidth}{@{}lX@{}}
      \toprule
      \multicolumn{2}{c}{\textbf{Files and Streams}}\\
-      \midrulework := FileSystem disk workingDirectory. \\
+      \midrule
+work := FileSystem disk workingDirectory. \\
 stream := (work / 'foo.txt') writeStream. \\
-stream nextPutAll: 'Hello World'. \\stream close. \\stream := (work / 'foo.txt') readStream. \\
+stream nextPutAll: 'Hello World'. \\
+stream close. \\
+stream := (work / 'foo.txt') readStream. \\
 stream contents. & $\rightsquigarrow$ 'Hello World' \\
 stream close.
 \end{tabularx}
