@@ -1,0 +1,1 @@
+scp pharoCheatSheet.pdf file-pharo.inria.fr:/home/filepharosync/files.pharo.org/media/
