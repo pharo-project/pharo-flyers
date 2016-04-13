@@ -147,25 +147,27 @@ Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seasid
 \noindent
 \begin{tabularx}{\linewidth}{@{}rX@{}}
         \toprule
-        \multicolumn{2}{c}{Reserved syntactic constructs}\\
+        \multicolumn{2}{c}{Object constructors \& reserved syntactic constructs}\\
         \midrule
         \textcolor{comment}{\code{"}{comment}\code{"}}& \\
         \textcolor{string}{\code{'}{string}\code{'}}&collection of characters\\
         \textcolor{string}{\code{\#symbol}}&unique string \\
         \textcolor{darkRed}{\code{\$a}}, Character space & the character \textcolor{darkRed}{\code{a}} and a space \\
-        \textcolor{darkRed}{\code{12 2r1100 16rC}} & twelve (decimal, binary, hexadecimal)\\
+        \textcolor{darkRed}{\code{12 2r1100 16rC}} & twelve (decimal, binary, hexa)\\
         \textcolor{darkRed}{\code{3.14 1.2e3}}&floating-point numbers\\
         \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})}&literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
         \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}}&dynamic array built from 2 expressions\\
-        \code{\#[\textcolor{darkRed}{123 21 255}]} &byte array \\
+        \code{\#[\textcolor{darkRed}{123 21 255}]} &byte array \\ 
+        \midrule
+        
+        \code{|\,\textcolor{darkBlue}{foo bar}\,|} &declaration of two temporary variables \\
+        \code{var := \emph{expr}}&assignment \\
         \code{\emph{exp1}. \emph{exp2}} &period -  expression separator\\
         \code{;} &semicolon - message cascade\\
-        \code{var := \emph{expr}}&assignment \\
+        \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} &code block with a parameter \\
         \code{<unary>}&method annotation \\
         \code{<key:\emph{'any'}wrd:\emph{\#lit}>}&with any literal arguments\\
-        \code{\textasciicircum\ \emph{expr}} &caret, returns a result from a method\\
-        \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} &code block with a parameter \\
-        \code{|\,\textcolor{darkBlue}{foo bar}\,|} &declaration of two temporary variables \\
+        \code{\textasciicircum\ \emph{expr}} &caret - returns a result from a method\\
         \bottomrule
 \end{tabularx}
 
@@ -227,17 +229,20 @@ arguments that are inserted in the message name.
 \begin{tabularx}{\linewidth}{@{}lX@{}}
         \toprule
      \textcolor{string}{'Pharo'} allButFirst: \textcolor{darkRed}{2}.& $\rightsquigarrow$ 'aro' \\
+\ [ :x | x + 2 ] value: 7 & $\rightsquigarrow$ 9 \\
      \textcolor{darkRed}{3} to: \textcolor{darkRed}{10} by: \textcolor{darkRed}{2}.& $\rightsquigarrow$ (3 to: 10 by: 2)\\
        \midrule
 \end{tabularx}
 
-The second example sends
+The second line executes a block. 
+The third example sends
 \code{to:by:} to \textcolor{darkRed}{\code{3}}, with arguments
 \textcolor{darkRed}{\code{10}} and \textcolor{darkRed}{\code{2}}; this
 returns an interval containing \textcolor{darkRed}{\code{3}},
 \textcolor{darkRed}{\code{5}}, \textcolor{darkRed}{\code{7}}, and
-\textcolor{darkRed}{\code{9}}.
+\textcolor{darkRed}{\code{9}}. 
 
+\vspace{-0.3cm}
 \subsection{Message Precedence}
 
 Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from
@@ -252,7 +257,7 @@ The rule suffers no exception: operators are just binary messages with \emph{no 
 \code{\textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}} reads left-to-right and gives \textcolor{darkRed}{18}, not \textcolor{darkRed}{14}!
 
 %\clearpage
-
+\vspace{-0.3cm}
 \subsection{Cascade: Sending Muliple Messages to the Same Object}
 
 Multiple messages can be sent to the same receiver with \code{;}.
@@ -274,28 +279,29 @@ message cascade instead (\ie the collection), make sure to send
 
 \vspace{-0.3cm}
 \subsection{Blocks}
-Blocks are objects containing code that is executed on demand. They are the basis for control structures like
+Blocks are objects containing code that is executed on demand. They are the basis for control structures:
 conditionals \& loops.
 
 \begin{displaycode}
 \textcolor{darkRed}{2} = \textcolor{darkRed}{2}
   ifTrue: [ \textcolor{darkBlue}{Error} signal: \textcolor{string}{'Help'} ].
 \end{displaycode}
+Send the message \code{ifTrue:} to the boolean
+\textcolor{darkRed}{\code{true}} (computed from
+\code{\textcolor{darkRed}{2} = \textcolor{darkRed}{2}}) with a block
+as argument. Because the boolean is \textcolor{darkRed}{\code{true}},
+the block is executed and an exception is signaled.
+
 \begin{displaycode}
 \#(\textcolor{string}{'Hello World'} \textcolor{darkRed}{\$!})
   do: [ :\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e} ]
 \end{displaycode}
 
-The first example sends the message \code{ifTrue:} to the boolean
-\textcolor{darkRed}{\code{true}} (computed from
-\code{\textcolor{darkRed}{2} = \textcolor{darkRed}{2}}) with a block
-as argument. Because the boolean is \textcolor{darkRed}{\code{true}},
-the block is executed and an exception is signaled. The next example
-sends the message \code{do:} to an array. This evaluates the block
+Send the message \code{do:} to an array. This executes the block
 once for each element, passing it via the \code{e} parameter. As a
 result, \code{\textcolor{string}{Hello~World!}} is printed.
 
-
+\vspace{-0.3cm}
 \section{Common Constructs}
 
 \noindent
@@ -334,10 +340,14 @@ Collections start at 1. Messages \code{at: index} gives element at index and \ct
      \toprule
       \multicolumn{2}{c}{\textbf{Collections}}\\
       \midrule
-     \textcolor{string}{\#(4 2 1) at: 3}& $\rightsquigarrow$ 1 \\
-     \textcolor{string}{\#(4 2 1) copy at: 3 put: 6}& $\rightsquigarrow$ \#(4 2 6) \\
-     \textcolor{string}{\{4 . 2 . 1\} at: 3 put: 6}& $\rightsquigarrow$ \#(4 2 6) \\
-     \textcolor{string}{Set new add: 4; add: 4; yourself}& $\rightsquigarrow$ aSet \\
+    \#(4 2 1) at: 3& $\rightsquigarrow$ 1 \\
+   \#(4 2 1) copy at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
+   \{4 . 2 . 1\} at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
+     \midrule
+    (Array new: 2) add: 4; add: 2 ; yourself& $\rightsquigarrow$ \#(4 2) \\
+    Set new add: 4; add: 4 ; yourself&$\rightsquigarrow$ aSet \\
+    Dictionary new& \\
+    \ \ \ at: \#a put: 'Alpha' ; yourself&$\rightsquigarrow$ aDictionary\\
      \midrule
 \end{tabularx}
 
