@@ -333,7 +333,7 @@ names do: [ :each |&\ \      System.out.print( name );\\
 \midrule
 \end{tabularx}
 
-Collections start at 1. Messages \code{at: index} gives element at index and \ct{at: index put: value} set element at index to value.
+Collections start at 1. \code{aCol~at:i} accesses element at \ct{i} and \code{aCol at:i put:value} sets element at \code{i} to \code{value}.
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
@@ -409,7 +409,7 @@ selected text to see available options).
 
 \vspace{-0.3cm}
 \subsection{Defining a class}
-To add a class, edit the proposed template!
+To add a class or edit a class, edit the proposed template!
 The following expression defines the class \code{Counter} as a subclass of \code{Object}.
 It defines two instance variables \code{count} and \code{initialValue} inside the package \code{MyCounter}.
 
