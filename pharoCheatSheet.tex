@@ -260,21 +260,18 @@ The rule suffers no exception: operators are just binary messages with \emph{no 
 \vspace{-0.3cm}
 \subsection{Cascade: Sending Muliple Messages to the Same Object}
 
-Multiple messages can be sent to the same receiver with \code{;}.
-
+Using \code{;} (a cascade) multiple messages are sent to the result of the  same expression.
+Here \code{;} arrives after \ct{add: 1}, so messages \ct{add: 2} and \ct{add: 3} are sent to \ct{add: 1}'s receiver: a collection.
 \begin{displaycode}
 \textcolor{darkBlue}{OrderedCollection} new
-  add: \textcolor{string}{#abc};
-  add: \textcolor{string}{#def};
-  add: \textcolor{string}{#ghi}.
+  add: \textcolor{string}{1};
+  add: \textcolor{string}{2};
+  add: \textcolor{string}{3}.
 \end{displaycode}
 
-The message \code{new} is sent to \code{\textcolor{darkBlue}{OrderedCollection}} which
-returns a new collection to which three
-\code{add:} messages are sent. The value of the whole message cascade
-is the value of the last message sent (here, the symbol
-\textcolor{string}{\code{\#ghi}}). To return the receiver of the
-message cascade instead (\ie the collection), make sure to send
+The whole message cascade value is the value of the last message sent (the symbol
+\textcolor{string}{\code{\#g}}). To return the receiver of the
+message cascade instead (\ie the collection), send
 \code{yourself} as the last message of the cascade.
 
 \vspace{-0.3cm}
