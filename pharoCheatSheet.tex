@@ -152,7 +152,7 @@ Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seasid
         \textcolor{comment}{\code{"}{comment}\code{"}}& \\
         \textcolor{string}{\code{'}{string}\code{'}}&collection of characters\\
         \textcolor{string}{\code{\#symbol}}&unique string \\
-        \textcolor{darkRed}{\code{\$a}}, Character space & the character \textcolor{darkRed}{\code{a}} and a space \\
+        \textcolor{darkRed}{\code{\$a}}, Character space &Two ways to create characters\\
         \textcolor{darkRed}{\code{12 2r1100 16rC}} & twelve (decimal, binary, hexa)\\
         \textcolor{darkRed}{\code{3.14 1.2e3}}&floating-point numbers\\
         \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})}&literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
@@ -175,7 +175,7 @@ Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seasid
 
 %\vspace{-0.3cm}
 \subsection{Message Sending}
-When we send a message to an object (the \emph{receiver}), the corresponding method is selected and executed, and the method answers an object. Messages syntax mimics natural languages, with a subject, a verb, and complements.
+When we send a message to an object (the \emph{receiver}), the corresponding method is selected and executed, and the method answers an object. Message syntax mimics natural languages, with a subject, a verb, and complements.
 
 
 
@@ -252,7 +252,7 @@ left to right.
 (\textcolor{darkRed}{10} between: \textcolor{darkRed}{1} and: \textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}) not
 \end{displaycode}
 
-Messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and \code{not}.
+Messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and then \code{not}.
 The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}.
 \code{\textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}} reads left-to-right and gives \textcolor{darkRed}{18}, not \textcolor{darkRed}{14}!
 
@@ -430,7 +430,7 @@ The method \code{initialize} is automatically invoked when a new instance is cre
 \vspace{-0.3cm}
 \subsection{Methods}
 Methods are public and virtual. They are always looked up in the class of the receiver. By default a method returns \code{self}. 
-Class methods follow the same dynamic lookup than instance methods. 
+Class methods follow the same dynamic lookup as instance methods. 
 Method \code{factorial} defined in class \ct{Integer}. 
 
 \begin{displaycode}
@@ -471,7 +471,7 @@ and blocks are lexical closures.
 
 \textbf{Less is more:}  No type declarations, no primitive
 objects, no generic types, no modifiers, no operators, no inner
-classes, no constructors, and no static methods. There are not needed!
+classes, no constructors, and no static methods. They are not needed!
 
 
 
