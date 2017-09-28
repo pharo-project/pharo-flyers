@@ -106,7 +106,7 @@ in a few minutes. Concepts in Pharo are \emph{very consistent}:
 \paragraph{Main Web Sites}
 \begin{description}
  \item[Code hosting] \url{http://smalltalkhub.com}
- \item[Questions]    \url{https://pharoproject.slack.com/}
+ \item[Questions]    \url{http://discord.gg/Sj2rhxn}
  \item[Blog] \url{http://pharoweekly.wordpress.com}
  \item[Contributors] \url{http://pharo.org/about}
  \item[Topics]       \url{http://topics.pharo.org}
@@ -239,9 +239,14 @@ returns an interval containing \textcolor{darkRed}{\code{3}},
 Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from
 left to right.
 
-\begin{displaycode}
-(\textcolor{darkRed}{10} between: \textcolor{darkRed}{1} and: \textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}) not
-\end{displaycode}
+\noindent
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+        \toprule
+    (\textcolor{darkRed}{15} between: \textcolor{darkRed}{1} and: \textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}) not& $\rightsquigarrow$ false \\
+       \midrule
+\end{tabularx}
+
+
 
 Messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and \code{not}.
 The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}.
@@ -321,7 +326,7 @@ for( String name : names ) \{ &names := \#('A' 'B' 'C').\\
      \midrule
 \end{tabularx}
 
-Collections start at 1. Messages \code{at: index} gives element at index and \ct{at: index put: value} set element at index to value.
+Collections start at 1. Messages \code{at: index} gives element at index and \ct{at: index put: value} sets element at index to value.
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
@@ -338,9 +343,12 @@ Collections start at 1. Messages \code{at: index} gives element at index and \ct
 \begin{tabularx}{\linewidth}{@{}lX@{}}
      \toprule
      \multicolumn{2}{c}{\textbf{Files and Streams}}\\
-      \midrulework := FileSystem disk workingDirectory. \\
+      \midrule
+work := FileSystem disk workingDirectory. \\
 stream := (work / 'foo.txt') writeStream. \\
-stream nextPutAll: 'Hello World'. \\stream close. \\stream := (work / 'foo.txt') readStream. \\
+stream nextPutAll: 'Hello World'. \\
+stream close. \\
+stream := (work / 'foo.txt') readStream. \\
 stream contents. & $\rightsquigarrow$ 'Hello World' \\
 stream close.
 \end{tabularx}
