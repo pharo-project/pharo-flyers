@@ -150,10 +150,10 @@ Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seasid
         \multicolumn{2}{c}{Object constructors \& reserved syntactic constructs}\\
         \midrule
         \textcolor{comment}{\code{"}{comment}\code{"}}& \\
-        \textcolor{string}{'string'}&collection of characters\\
-        \textcolor{string}{\code{\#symbol}}&unique string \\
-        \textcolor{darkRed}{\code{\$a}}, Character space &Two ways to create characters\\
-        \textcolor{darkRed}{\code{12 2r1100 16rC}} & twelve (decimal, binary, hexa)\\
+        \textcolor{string}{'string'}&sequence of characters\\
+        \textcolor{string}{\code{\#symbol}}&unique string\\
+        \textcolor{darkRed}{\code{\$a}}, Character space&two ways to create characters\\
+        \textcolor{darkRed}{\code{12 2r1100 16rC}}&twelve (decimal, binary, hexa)\\
         \textcolor{darkRed}{\code{3.14 1.2e3}}&floating-point numbers\\
         \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})}&literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
         \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}}&dynamic array built from 2 expressions\\
@@ -162,12 +162,12 @@ Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seasid
         
         \code{|\,\textcolor{darkBlue}{foo bar}\,|} &declaration of two temporary variables \\
         \code{var := \emph{expr}}&assignment \\
-        \code{\emph{exp1}. \emph{exp2}} &period -  expression separator\\
+        \code{\emph{exp1}. \emph{exp2}} &period -  statement separator\\
         \code{;} &semicolon - message cascade\\
         \code{[\,:\textcolor{darkBlue}{p}\,|\,}\emph{expr}\code{\,]} &code block with a parameter \\
         \code{<unary>}&method annotation \\
         \code{<key:\emph{'any'}wrd:\emph{\#lit}>}&with any literal arguments\\
-        \code{\textasciicircum\ \emph{expr}} &caret - returns a result from a method\\
+        \code{\textasciicircum\ \emph{expr}} &caret - return/answer a result from a method\\
         \bottomrule
 \end{tabularx}
 
@@ -193,7 +193,7 @@ d at: '1' put: 'Chocolate'.&d.put("1", "Chocolate");\\
 \vspace{-0.3cm}
 \subsection{Three Types of Messages: Unary, Binary, and Keyword}
 
-A \textbf{unary message} is one with no arguments.
+A \textbf{unary message} has no arguments.
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
@@ -345,9 +345,9 @@ Collections start at 1. \code{aCol~at:i} accesses element at \ct{i} and \code{aC
    \{4 . 2 . 1\} at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
      \midrule
     (Array new: 2) add: 4; add: 2 ; yourself& $\rightsquigarrow$ \#(4 2) \\
-    Set new add: 4; add: 4 ; yourself&$\rightsquigarrow$ aSet \\
+    Set new add: 4; add: 4 ; yourself&$\rightsquigarrow$ aSet(4) \\
     Dictionary new& \\
-    \ \ \ at: \#a put: 'Alpha' ; yourself&$\rightsquigarrow$ aDictionary\\
+    \ \ \ at: \#a put: 'Alpha' ; yourself&$\rightsquigarrow$a~Dictionary(\#a->'Alpha')\\
      \midrule
 \end{tabularx}
 
