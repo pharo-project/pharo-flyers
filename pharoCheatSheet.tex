@@ -102,15 +102,16 @@ in a few minutes. Concepts in Pharo are \emph{very consistent}:
   \item Everything is an object: buttons, colors, arrays, numbers, classes, methods\ldots \emph{Everything!}
   \item A small number of rules, no exceptions!
 \end{itemize}
-
-\vspace{-0.3cm}
+\begin{tiny}Pharo 14 - Sept 2025\end{tiny}
+\vspace{-0.2cm}
 \paragraph{Main Web Sites}
 \begin{description}
- \item[Code hosting] \url{http://smalltalkhub.com}
+ \item[Core hosting] \url{http://github.com/pharo-project}
+ \item[Contributions] \url{http://github.com/pharo-contribution}
+ \item[New Tools] \url{http://github.com/pharo-spec}
+ \item[New Core Graphics] \url{http://github.com/pharo-graphics}
  \item[Questions]    \url{http://discord.gg/Sj2rhxn}
- \item[Blog] \url{http://pharoweekly.wordpress.com}
- \item[Contributors] \url{http://pharo.org/about}
- \item[Topics]       \url{http://topics.pharo.org}
+ \item[Topics]       \url{http://talks.pharo.org}
  \item[Consortium]   \url{http://consortium.pharo.org}
  \item[Association]  \url{http://association.pharo.org}
 \end{description}
@@ -119,11 +120,10 @@ in a few minutes. Concepts in Pharo are \emph{very consistent}:
 \subsection{PharoBooks}
 
 \textbf{Pharo books} are available at: \url{http://books.pharo.org}\\
-Pharo By Example, Deep into Pharo, Enterprise Pharo: a Web Perspective,
-Numerical Methods in Pharo, TinyBlog Tutorial, Dynamic Web Development in Seaside 
-(\url{http://book.seaside.st})
+Pharo with Style, Pharo By Example, Deep into Pharo, Enterprise Pharo: a Web Perspective, Application Building with Spec
+TinyBlog Tutorial, Dynamic Web Development in Seaside
 
-\textbf{More books} \url{http://stephane.ducasse.free.fr/FreeBooks}
+\textbf{More books} \url{http://stephaneducasse.github.io/freebooks}
 
 
 
@@ -414,9 +414,8 @@ The following expression defines the class \code{Counter} as a subclass of \code
 It defines two instance variables \code{count} and \code{initialValue} inside the package \code{MyCounter}.
 
 \begin{displaycode}
-Object subclass: #Counter
-   instanceVariableNames: 'count initialValue'
-   classVariableNames: '' 
+Object << #Counter
+   slots: { #count . #initialValue};
    package: 'MyCounter'
 \end{displaycode}
 
