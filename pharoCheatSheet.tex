@@ -294,7 +294,7 @@ the block is executed and an exception is signaled.
 
 \begin{displaycode}
 \#(\textcolor{string}{'Hello World'} \textcolor{darkRed}{\$!})
-  do: [ :\textcolor{darkBlue}{e} | \textcolor{darkBlue}{Transcript} show: \textcolor{darkBlue}{e} ]
+  do: [ :\textcolor{darkBlue}{e} | \textcolor{darkBlue}{e} traceCr ]
 \end{displaycode}
 
 Send the message \code{do:} to an array. This executes the block
@@ -324,12 +324,12 @@ condition&if (condition) \\
         \multicolumn{2}{c}{\textbf{Loops/Iterators}}\\
 \midrule
 1 to: 11 do: [ :i | &for(int i=1; i<=11; i++)\{ \\
-\ \ \ \ Transcript show: i ; cr ]&\ \ \ \    System.out.println(i); \}\\
+\ \ \ \  i traceCr ]&\ \ \ \    System.out.println(i); \}\\
   \midrule
 | names | &String [] names =\{"A", "B", "C"\};\\  
 names := \#('A' 'B' 'C').&for( String name : names ) \{\\
 names do: [ :each |&\ \      System.out.print( name );\\
- \ \ \ Transcript show: each, ' , ' ]&\ \     System.out.print(","); \} \\
+ \ \ \ (each, ' , ') traceCr]&\ \     System.out.print(","); \} \\
 \midrule
 \end{tabularx}
 
@@ -344,7 +344,7 @@ Collections start at 1. \code{aCol~at:i} accesses element at \ct{i} and \code{aC
    \#(4 2 1) copy at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
    \{4 . 2 . 1\} at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
      \midrule
-    (Array new: 2) add: 4; add: 2 ; yourself& $\rightsquigarrow$ \#(4 2) \\
+    OrderedCollection new add: 4; \\    add: 2 ; asArray& $\rightsquigarrow$ \#(4 2) \\
     Set new add: 4; add: 4 ; yourself&$\rightsquigarrow$ aSet(4) \\
     Dictionary new& \\
     \ \ \ at: \#a put: 'Alpha' ; yourself&$\rightsquigarrow$a~Dictionary(\#a->'Alpha')\\
