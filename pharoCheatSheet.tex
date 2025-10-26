@@ -153,10 +153,10 @@ TinyBlog Tutorial, Dynamic Web Development in Seaside
         \textcolor{string}{'string'}&sequence of characters\\
         \textcolor{string}{\code{\#symbol}}&unique string\\
         \textcolor{darkRed}{\code{\$a}}, Character space&two ways to create characters\\
-        \textcolor{darkRed}{\code{12 2r1100 16rC}}&twelve (decimal, binary, hexa)\\
+        \textcolor{darkRed}{\code{12 5r22 16rC}}&twelve (decimal, 5-base, hexa)\\
         \textcolor{darkRed}{\code{3.14 1.2e3}}&floating-point numbers\\
-        \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})}&literal array with the symbol \textcolor{string}{\code{\#abc}} and the number \textcolor{darkRed}{\code{123}} \\
-        \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}}&dynamic array built from 2 expressions\\
+        \code{\#(\textcolor{string}{abc} \textcolor{darkRed}{123})}&compiled time literal array\\
+        \code{\{\textcolor{darkBlue}{foo}\,.\ \textcolor{darkRed}{3}\,+\,\textcolor{darkRed}{2}\}}&runtime array whose elements are evaluated at runtime\\
         \code{\#[\textcolor{darkRed}{123 21 255}]} &byte array \\ 
         \midrule
         
@@ -341,8 +341,8 @@ Collections start at 1. \code{aCol~at:i} accesses element at \ct{i} and \code{aC
       \multicolumn{2}{c}{\textbf{Collections}}\\
       \midrule
     \#(4 2 1) at: 3& $\rightsquigarrow$ 1 \\
-   \#(4 2 1) copy at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
-   \{4 . 2 . 1\} at: 3 put: 6& $\rightsquigarrow$ \#(4 2 6) \\
+   \#(4 2 1) copy at: 3 put: 6; yourself& $\rightsquigarrow$ \#(4 2 6) \\
+   \{4 . 2 . 1\} at: 3 put: 6 ; yoursel& $\rightsquigarrow$ \#(4 2 6) \\
      \midrule
     OrderedCollection new add: 4; \\    add: 2 ; asArray& $\rightsquigarrow$ \#(4 2) \\
     Set new add: 4; add: 4 ; yourself&$\rightsquigarrow$ aSet(4) \\
