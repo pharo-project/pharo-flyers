@@ -177,8 +177,6 @@ TinyBlog Tutorial, Dynamic Web Development in Seaside
 \subsection{Message Sending}
 When we send a message to an object (the \emph{receiver}), the corresponding method is selected and executed, and the method answers an object. Message syntax mimics natural languages, with a subject, a verb, and complements.
 
-
-
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
         \toprule
@@ -192,6 +190,7 @@ d at: '1' put: 'Chocolate'.&d.put("1", "Chocolate");\\
 
 \vspace{-0.3cm}
 \subsection{Three Types of Messages: Unary, Binary, and Keyword}
+Computation happens by sending messages to objects. 
 
 A \textbf{unary message} has no arguments.
 
@@ -234,7 +233,7 @@ arguments that are inserted in the message name.
        \midrule
 \end{tabularx}
 
-The second line executes a block. 
+The second line executes a block (lexical closure). 
 The third example sends
 \code{to:by:} to \textcolor{darkRed}{\code{3}}, with arguments
 \textcolor{darkRed}{\code{10}} and \textcolor{darkRed}{\code{2}}; this
@@ -245,8 +244,7 @@ returns an interval containing \textcolor{darkRed}{\code{3}},
 \vspace{-0.3cm}
 \subsection{Message Precedence}
 
-Parentheses\,$>$\,unary\,$>$\,binary\,$>$\,keyword, and finally from
-left to right.
+Parentheses have the highest precedence, followed by unary, binary, and keyword messages — all evaluated left to right. 
 
 \noindent
 \begin{tabularx}{\linewidth}{@{}lX@{}}
@@ -259,6 +257,7 @@ left to right.
 
 Messages \code{+} and \code{*} are sent first, then \code{between:and:} is sent, and \code{not}.
 The rule suffers no exception: operators are just binary messages with \emph{no notion of mathematical precedence}.
+Mathematical operators like + and * are not special; they are ordinary binary messages.  This means 2 + 4 * 3 is evaluated strictly left to right, giving 18, not 14. 
 \code{\textcolor{darkRed}{2}\,+\,\textcolor{darkRed}{4}\,*\,\textcolor{darkRed}{3}} reads left-to-right and gives \textcolor{darkRed}{18}, not \textcolor{darkRed}{14}!
 
 %\clearpage
